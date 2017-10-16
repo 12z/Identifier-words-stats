@@ -87,22 +87,3 @@ def get_top_functions_names_in_path(path, top_size=10):
            flat([[node.name.lower() for node in ast.walk(t) if isinstance(node, ast.FunctionDef)] for t in t]) if
            not (f.startswith('__') and f.endswith('__'))]
     return collections.Counter(nms).most_common(top_size)
-
-
-wds = []
-projects = [
-    'django',
-    'flask',
-    'pyramid',
-    'reddit',
-    'requests',
-    'sqlalchemy',
-]
-for project in projects:
-    path = os.path.join('.', project)
-    wds += get_top_verbs_in_path(path)
-
-top_size = 200
-print('total %s words, %s unique' % (len(wds), len(set(wds))))
-for word, occurence in collections.Counter(wds).most_common(top_size):
-    print(word, occurence)
