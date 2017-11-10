@@ -17,10 +17,8 @@ def is_verb(word):
     return pos_info[0][1] == 'VB'
 
 
-def get_trees(path):
-
+def get_filenames(path):
     filenames = []
-    trees = []
 
     for dir_path, dirs, files in os.walk(path):
         for file in files:
@@ -28,19 +26,33 @@ def get_trees(path):
                 filenames.append(os.path.join(dir_path, file))
 
     print('total %s files' % len(filenames))
+
+    return filenames
+
+
+def get_trees_from_filenames(filenames):
+    trees = []
+
     for filename in filenames:
 
         with open(filename, 'r', encoding='utf-8') as attempt_handler:
             main_file_content = attempt_handler.read()
         try:
             tree = ast.parse(main_file_content)
+            trees.append(tree)
         except SyntaxError as e:
             print(e)
-            tree = None
+            continue
 
-        trees.append(tree)
+    return trees
 
+
+def get_trees(path):
+
+    filenames = get_filenames(path)
+    trees = get_trees_from_filenames(filenames)
     print('trees generated')
+
     return trees
 
 
@@ -51,7 +63,6 @@ def get_verbs_from_function_name(function_name):
 def get_top_verbs_in_path(path, top_size=10):
 
     trees = [t for t in get_trees(path) if t]
-    # trees2 = get_trees(path)
 
     fncs = [f for f in
             flat([[node.name.lower() for node in ast.walk(t) if isinstance(node, ast.FunctionDef)] for t in trees]) if

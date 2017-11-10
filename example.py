@@ -1,4 +1,3 @@
-import builtins
 import django
 import pyramid as pyramid
 
@@ -11,7 +10,6 @@ import flask
 import requests
 
 
-# wds = []
 projects = [
     flask,
     requests,
@@ -19,17 +17,11 @@ projects = [
     django,
 ]
 
-# projects = [
-#     'django',
-#     'flask',
-#     'pyramid',
-#     'reddit',
-#     'requests',
-#     'sqlalchemy',
-# ]
 
-path = os.path.dirname(os.path.dirname(nltk.__file__))
-wds = get_top_verbs_in_path(path)
+# using nltk package here as it is needed to be installed anyway
+nltk_dir = os.path.dirname(nltk.__file__)
+path = os.path.dirname(nltk_dir)
+wds = get_top_verbs_in_path(nltk_dir, 200)
 
 # for project in projects:
 #     pack = builtins
@@ -37,9 +29,8 @@ wds = get_top_verbs_in_path(path)
 #     # path = os.path.join('.', project)
 #     wds += get_top_verbs_in_path(path)
 
-print(wds)
 
 top_size = 200
 print('total %s words, %s unique' % (len(wds), len(set(wds))))
-for word, occurence in collections.Counter(wds).most_common(top_size):
+for word, occurence in wds:
     print(word, occurence)
