@@ -28,8 +28,12 @@ def _read_sources_from_path(path: str) -> Iterable[str]:
 def _get_function_names_from_source_code(source_code: str) -> Iterable[str]:
 
     for node in ast.walk(ast.parse(source_code)):
-        if isinstance(node, ast.FunctionDef) and \
-                (not node.name.startswith('__') and not node.name.endswith('__')):
+        if not isinstance(node, ast.FunctionDef):
+            continue
+
+        starts_with_underscores = node.name.startswith('__')
+        ends_with_underscores = node.name.endswith('__')
+        if not (starts_with_underscores or ends_with_underscores):
             yield node.name.lower()
 
 
