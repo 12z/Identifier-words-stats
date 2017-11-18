@@ -8,21 +8,6 @@ from enum import Enum, auto
 from .verb_extractor import get_verbs_in_path
 
 
-from collections import namedtuple
-
-DataItem = namedtuple('DataItem', ['word', 'part_of_speech', 'location'])
-
-
-class PartOfSpeech(Enum):
-    VERB = auto()
-    NOUN = auto()
-
-
-class WordLocation(Enum):
-    FUNCTION = auto()
-    VARIABLE = auto()
-
-
 class ResultsRepresentationType(Enum):
     CONSOLE = auto()
     JSON_FILE = auto()
