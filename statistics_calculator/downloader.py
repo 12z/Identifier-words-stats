@@ -2,8 +2,9 @@ import os
 
 from git import Repo
 from git.exc import GitError
+import requests
 
-from .exc import RepositoryCloningError
+from .exc import RepositoryCloningError, RepositoryUrlError
 
 
 REPOS_FOLDER_MODE = 0o775
@@ -11,6 +12,10 @@ REPOS_FOLDER_FULL_NAME = '/tmp/repos'
 
 
 def download_repo(repo_url: str) -> str:
+
+    if not requests.get(repo_url).status_code == requests.codes.ok:
+        raise RepositoryUrlError
+
     repo_folder = construct_repo_folder(REPOS_FOLDER_FULL_NAME, repo_url)
 
     if os.path.exists(repo_folder):
