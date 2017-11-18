@@ -4,6 +4,6 @@ class StatisticsCalculatorError(ValueError):
     """
 
 
-class RepositoryExistsError(StatisticsCalculatorError):
+class RepositoryCloningError(StatisticsCalculatorError):
     def __init__(self):
-        super().__init__('Repository being cloned already exists on disk')
+        super().__init__('Unable to clone repository')

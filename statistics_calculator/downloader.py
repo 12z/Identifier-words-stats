@@ -3,7 +3,7 @@ import os
 from git import Repo
 from git.exc import GitError
 
-from .exc import RepositoryExistsError
+from .exc import RepositoryCloningError
 
 
 REPOS_FOLDER_MODE = 0o775
@@ -21,7 +21,7 @@ def download_repo(repo_url: str) -> str:
     try:
         Repo.clone_from(repo_url, repo_folder)
     except GitError as e:
-        raise RepositoryExistsError().with_traceback(e.__traceback__)
+        raise RepositoryCloningError().with_traceback(e.__traceback__)
 
     return repo_folder
 
