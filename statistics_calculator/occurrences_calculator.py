@@ -1,6 +1,6 @@
 from collections import Counter
 from typing import Iterable
-from .verb_extractor import PartOfSpeech, WordLocation, DataItem
+from .data_extractor import PartOfSpeech, WordLocation, DataItem
 
 
 def calculate_frequencies(data_items: Iterable[DataItem],
