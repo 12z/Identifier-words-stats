@@ -97,9 +97,12 @@ def get_marked_words_from_sources(sources):
 
 def get_marked_words_from_source_code(source_code):
 
-    for node in ast.walk(ast.parse(source_code)):
-        yield from find_functions_words(node)
-        yield from find_variables_words(node)
+    try:
+        for node in ast.walk(ast.parse(source_code)):
+            yield from find_functions_words(node)
+            yield from find_variables_words(node)
+    except SyntaxError:
+        pass  # ignore files with invalid syntax
 
 
 def find_functions_words(node):
