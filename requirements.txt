@@ -1,2 +1,2 @@
-nltk
-gitpython
+nltk==3.2.5
+gitpython==2.1.7
