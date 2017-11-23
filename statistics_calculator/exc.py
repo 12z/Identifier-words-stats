@@ -12,3 +12,8 @@ class RepositoryCloningError(StatisticsCalculatorError):
 class RepositoryUrlError(StatisticsCalculatorError):
     def __init__(self):
         super().__init__('Repository URL cannot be reached or invalid')
+
+
+class InvalidCliArgument(StatisticsCalculatorError):
+    def __init__(self):
+        super().__init__('Invalid argument provided to CLI')
