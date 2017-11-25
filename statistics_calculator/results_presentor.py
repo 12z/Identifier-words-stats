@@ -22,7 +22,7 @@ def present_results(counter, report_type, filename=None):
     elif report_type == ResultsRepresentationType.CSV_FILE and filename:
         return present_in_csv_file(counter, filename)
 
-    elif report_type == ResultsRepresentationType.CONSOLE and filename:
+    elif report_type == ResultsRepresentationType.CONSOLE:
         return present_in_console(counter)
 
 

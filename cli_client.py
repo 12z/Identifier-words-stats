@@ -13,15 +13,15 @@ def cli_client():
 
     try:
         repository_url = sys.argv[1]
-        part_of_speech = sys.argv[2]
-        word_location = sys.argv[3]
-        report_type = sys.argv[4]
+        part_of_speech = parse_part_of_speech(sys.argv[2])
+        word_location = parse_word_location(sys.argv[3])
+        report_type = parse_report_type(sys.argv[4])
 
     except InvalidCliArgument:
         print_help()
         return
 
-    if args_len == 5:
+    if args_len == 6:
         filename = sys.argv[5]
     else:
         filename = None
