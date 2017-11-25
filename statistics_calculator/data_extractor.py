@@ -53,38 +53,6 @@ def _get_function_names_from_source_code(source_code: str) -> Iterable[str]:
             yield node.name.lower()
 
 
-def _get_function_names_from_sources(sources: Iterable[str]) -> Iterable[str]:
-
-    for source_code in sources:
-        for function_name in _get_function_names_from_source_code(source_code):
-            yield function_name
-
-
-def _get_verbs_from_sources(sources: Iterable[str]):
-    function_names = _get_function_names_from_sources(sources)
-    return _get_verbs_from_function_names(function_names)
-
-
-def _is_verb(word: str) -> bool:
-    if not word:
-        return False
-    pos_info = pos_tag([word])
-    return pos_info[0][1] == 'VB'
-
-
-def _get_verbs_from_function_names(function_names: Iterable[str]) -> Iterable[str]:
-
-    for function_name in function_names:
-        for word in function_name.split('_'):
-            if _is_verb(word):
-                yield word
-
-
-def get_verbs_in_path(path: str) -> Iterable[str]:
-    sources = _read_sources_from_path(path)
-    return _get_verbs_from_sources(sources)
-
-
 def get_data(path):
     sources = _read_sources_from_path(path)
     yield from get_marked_words_from_sources(sources)
@@ -163,8 +131,3 @@ def get_part_of_speech(word: str) -> Union[PartOfSpeech, None]:
 
     else:
         return None  # Explicit is better than implicit. (c) PEP 20
-
-
-if __name__ == '__main__':
-    for item in get_data('/tmp/repos/Verb-extractor'):
-        print('{:11} {} {}'.format(item.word, item.part_of_speech.name, item.location.name))
